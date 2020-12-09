@@ -6,7 +6,10 @@ function AddElement() {
     console.log(itemList);
 }
 
-function Sort(array, start, end) {
+function Sort() {
+    let array = itemList;
+    let start = 0;
+    let end = array.length - 1;
     if (start >= end) {
         return;
     }
@@ -16,8 +19,18 @@ function Sort(array, start, end) {
     Sort(array, index + 1, end);
 }
 
-function GetPartitionIndex(array, start, end){
-    
+function GetPartitionIndex(array, start, end) {
+    let pivotIndex = 0;
+    let pivotValue = array[end];
+
+    for (var i = 0; i < end; i++) {
+        if (array[i] < pivotValue) {
+            Swap(array, i, pivotIndex);
+            pivotIndex++;
+        }
+    }
+    Swap(array, pivotIndex, end);
+    console.log(array);
 }
 
 function Swap(array, indexFrom, indexTo) {
