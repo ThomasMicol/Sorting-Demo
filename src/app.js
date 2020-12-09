@@ -7,5 +7,11 @@ function AddElement() {
 }
 
 function Sort() {
-    
+
+}
+
+function Swap(array, indexFrom, indexTo) {
+    const temp = array[indexTo];
+    array[indexTo] = array[indexFrom];
+    array[indexFrom] = temp;
 }
