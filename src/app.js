@@ -1,4 +1,5 @@
 let itemList = [];
+let timeoutStop = false;
 
 function AddElement() {
     const newItem = (Math.random() * 100)
@@ -6,31 +7,40 @@ function AddElement() {
     console.log(itemList);
 }
 
-function Sort() {
-    let array = itemList;
-    let start = 0;
-    let end = array.length - 1;
-    if (start >= end) {
+function StartSort() {
+    Sort(itemList, 0, itemList.length - 1);
+    console.log(itemList);
+}
+
+function Sort(array, start, end) {
+    setTimeout(() => {
+        timeoutStop = true;
+    }, 5000)
+    if (timeoutStop === true) {
+        timeoutStop = false;
         return;
     }
 
+    if (start >= end) {
+        return;
+    }
     let partitionIndex = GetPartitionIndex(array, start, end);
     Sort(array, start, partitionIndex - 1);
-    Sort(array, index + 1, end);
+    Sort(array, partitionIndex + 1, end);
 }
 
 function GetPartitionIndex(array, start, end) {
-    let pivotIndex = 0;
+    let pivotIndex = start;
     let pivotValue = array[end];
 
-    for (var i = 0; i < end; i++) {
+    for (var i = start; i < end; i++) {
         if (array[i] < pivotValue) {
             Swap(array, i, pivotIndex);
             pivotIndex++;
         }
     }
     Swap(array, pivotIndex, end);
-    console.log(array);
+    return pivotIndex;
 }
 
 function Swap(array, indexFrom, indexTo) {
