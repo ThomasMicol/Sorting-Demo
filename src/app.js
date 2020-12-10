@@ -1,12 +1,13 @@
 let itemList = [];
 let timeoutStop = false;
 const canvas = document.querySelector("canvas").getContext("2d");
+
 canvas.fillStyle = "black";
 canvas.fillRect(0, 0, canvas.canvas.width, canvas.canvas.height);
 
 function DrawRectangle(height, width, index) {
     canvas.fillStyle = "white";
-    canvas.fillRect(2 + width * index - 2 + (5 * index), canvas.canvas.height, width + 0.5, height * -1 + 0.5);
+    canvas.fillRect(5 + (width * index) + (5 * index), canvas.canvas.height, width + 0.5, height * -1 + 0.5);
 }
 
 function RedrawGraph(array) {
