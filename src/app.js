@@ -48,7 +48,7 @@ function Sort(array, start, end) {
     Sort(array, partitionIndex + 1, end);
 }
 
-function GetPartitionIndex(array, start, end) {
+async function GetPartitionIndex(array, start, end) {
     let pivotIndex = start;
     let pivotValue = array[end];
 
@@ -58,13 +58,17 @@ function GetPartitionIndex(array, start, end) {
             pivotIndex++;
         }
     }
-    Swap(array, pivotIndex, end);
+    await Swap(array, pivotIndex, end);
     return pivotIndex;
 }
 
-function Swap(array, indexFrom, indexTo) {
-    const temp = array[indexTo];
-    array[indexTo] = array[indexFrom];
-    array[indexFrom] = temp;
-    RedrawGraph(array);
+async function Swap(array, indexFrom, indexTo) {
+    setTimeout(() => {
+        const temp = array[indexTo];
+        array[indexTo] = array[indexFrom];
+        array[indexFrom] = temp;
+        RedrawGraph(array);
+        return;
+    }, 500)
+
 }
