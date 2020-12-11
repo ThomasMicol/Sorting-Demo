@@ -1,4 +1,5 @@
 let itemList = [];
+const initalColumnGap = 5;
 let timeoutStop = false;
 const canvas = document.querySelector("canvas").getContext("2d");
 
@@ -7,15 +8,21 @@ canvas.fillRect(0, 0, canvas.canvas.width, canvas.canvas.height);
 
 function DrawRectangle(height, width, index) {
     canvas.fillStyle = "white";
-    canvas.fillRect(5 + (width * index) + (5 * index), canvas.canvas.height, width + 0.5, height * -1 + 0.5);
+    canvas.fillRect(initalColumnGap + (width * index) + (0.5 * index), canvas.canvas.height, width + 0.5, height * -1 + 0.5);
+}
+
+function CalculateColumnWidth(array) {
+    let canvasWidth = canvas.canvas.width;
+    return (canvasWidth - initalColumnGap) / array.length;
 }
 
 function RedrawGraph(array) {
     canvas.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
     canvas.fillStyle = "black";
     canvas.fillRect(0, 0, canvas.canvas.width, canvas.canvas.height);
+    let width = CalculateColumnWidth(array);
     for (let i = 0; i <= array.length; i++) {
-        DrawRectangle(array[i], 10, i);
+        DrawRectangle(array[i], width, i);
     }
 }
 
@@ -63,7 +70,7 @@ async function GetPartitionIndex(array, start, end) {
 }
 
 async function Swap(array, indexFrom, indexTo) {
-    await Sleep(100);
+    //await Sleep(100);
 
     const temp = array[indexTo];
     array[indexTo] = array[indexFrom];
