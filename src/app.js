@@ -1,19 +1,23 @@
 let itemList = [];
-const initalColumnGap = 5;
 let timeoutStop = false;
 const canvas = document.querySelector("canvas").getContext("2d");
+
+const initalColumnGap = canvas.canvas.width * 0.002;
+
 
 canvas.fillStyle = "black";
 canvas.fillRect(0, 0, canvas.canvas.width, canvas.canvas.height);
 
 function DrawRectangle(height, width, index) {
     canvas.fillStyle = "white";
-    canvas.fillRect(initalColumnGap + (width * index) + (0.5 * index), canvas.canvas.height, width + 0.5, height * -1 + 0.5);
+    canvas.fillRect(initalColumnGap + (width * index) + (initalColumnGap * index), canvas.canvas.height, width, height * -1);
 }
 
 function CalculateColumnWidth(array) {
     let canvasWidth = canvas.canvas.width;
-    return (canvasWidth - initalColumnGap) / array.length;
+    let result = (canvasWidth - (initalColumnGap + (initalColumnGap * array.length))) / array.length;
+    console.log(result);
+    return result;
 }
 
 function RedrawGraph(array) {
