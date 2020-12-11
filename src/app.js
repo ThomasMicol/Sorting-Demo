@@ -31,7 +31,7 @@ function StartSort() {
     console.log(itemList);
 }
 
-function Sort(array, start, end) {
+async function Sort(array, start, end) {
     setTimeout(() => {
         timeoutStop = true;
     }, 5000)
@@ -43,9 +43,9 @@ function Sort(array, start, end) {
     if (start >= end) {
         return;
     }
-    let partitionIndex = GetPartitionIndex(array, start, end);
-    Sort(array, start, partitionIndex - 1);
-    Sort(array, partitionIndex + 1, end);
+    let partitionIndex = await GetPartitionIndex(array, start, end);
+    await Sort(array, start, partitionIndex - 1);
+    await Sort(array, partitionIndex + 1, end);
 }
 
 async function GetPartitionIndex(array, start, end) {
@@ -54,7 +54,7 @@ async function GetPartitionIndex(array, start, end) {
 
     for (var i = start; i < end; i++) {
         if (array[i] < pivotValue) {
-            Swap(array, i, pivotIndex);
+            await Swap(array, i, pivotIndex);
             pivotIndex++;
         }
     }
@@ -63,12 +63,15 @@ async function GetPartitionIndex(array, start, end) {
 }
 
 async function Swap(array, indexFrom, indexTo) {
-    setTimeout(() => {
-        const temp = array[indexTo];
-        array[indexTo] = array[indexFrom];
-        array[indexFrom] = temp;
-        RedrawGraph(array);
-        return;
-    }, 500)
+    await Sleep(100);
 
+    const temp = array[indexTo];
+    array[indexTo] = array[indexFrom];
+    array[indexFrom] = temp;
+    RedrawGraph(array);
+
+}
+
+function Sleep(sleepTime) {
+    return new Promise(resolve => setTimeout(resolve, sleepTime));
 }
