@@ -16,7 +16,6 @@ function DrawRectangle(height, width, index) {
 function CalculateColumnWidth(array) {
     let canvasWidth = canvas.canvas.width;
     let result = (canvasWidth - (initalColumnGap + (initalColumnGap * array.length))) / array.length;
-    console.log(result);
     return result;
 }
 
@@ -55,8 +54,9 @@ async function Sort(array, start, end) {
         return;
     }
     let partitionIndex = await GetPartitionIndex(array, start, end);
-    await Sort(array, start, partitionIndex - 1);
-    await Sort(array, partitionIndex + 1, end);
+
+    await Promise.all([Sort(array, start, partitionIndex - 1), Sort(array, partitionIndex + 1, end)])
+
 }
 
 async function GetPartitionIndex(array, start, end) {
@@ -74,7 +74,7 @@ async function GetPartitionIndex(array, start, end) {
 }
 
 async function Swap(array, indexFrom, indexTo) {
-    //await Sleep(100);
+    await Sleep(50);
 
     const temp = array[indexTo];
     array[indexTo] = array[indexFrom];
